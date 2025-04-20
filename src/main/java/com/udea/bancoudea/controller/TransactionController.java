@@ -3,10 +3,7 @@ package com.udea.bancoudea.controller;
 import com.udea.bancoudea.DTO.TransactionDTO;
 import com.udea.bancoudea.service.TransactionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,8 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.getTransactionsForAccount(accountNumber));
     }
 
-
+    @PostMapping
+    public ResponseEntity<TransactionDTO> transferMoney(@RequestBody TransactionDTO transactionDTO){
+        return ResponseEntity.ok(transactionService.transferMoney(transactionDTO));
+    }
 }
