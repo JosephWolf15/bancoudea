@@ -8,6 +8,7 @@ import com.udea.bancoudea.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,7 @@ public class TransactionService {
         transaction.setSenderAccountNumber(sender.getAccountNumber());
         transaction.setReceiverAccountNumber(receiver.getAccountNumber());
         transaction.setAmount(transactionDTO.getAmount());
-        transaction.setTimestamp(transactionDTO.getTimestamp());
+        transaction.setTimestamp(LocalDateTime.now());
         transaction= transactionRepository.save(transaction);
 
         //Devolver la transaccion creada como un DTO
@@ -59,6 +60,7 @@ public class TransactionService {
         savedTransaction.setId(transaction.getId());
         savedTransaction.setSenderAccountNumber(transaction.getSenderAccountNumber());
         savedTransaction.setReceiverAccountNumber(transaction.getReceiverAccountNumber());
+        savedTransaction.setTimestamp(transaction.getTimestamp());
         savedTransaction.setAmount(transaction.getAmount());
         return savedTransaction;
 
@@ -72,6 +74,7 @@ public class TransactionService {
             dto.setSenderAccountNumber(transaction.getSenderAccountNumber());
             dto.setReceiverAccountNumber(transaction.getReceiverAccountNumber());
             dto.setAmount(transaction.getAmount());
+            dto.setTimestamp(transaction.getTimestamp());
             return dto;
         }).collect(Collectors.toList());
     }
